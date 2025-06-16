@@ -12,7 +12,7 @@ This module provides a simple way to record Minutes of Meeting (MOM) for each pr
 ## Installation
 1. Copy the `modules/mom` directory into your Perfex CRM `modules` folder.
 2. Login as admin and navigate to **Setup > Modules**.
-3. Click **Install** next to **MOM Notes**.
+3. Locate **MOM Notes** in the list and click **Install**.
 
 ## Uninstall
 1. From the **Modules** page click **Uninstall** next to **MOM Notes**.

@@ -1,5 +1,44 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
+define('MOM_MODULE_NAME', 'mom');
+
+register_module([
+    'name'           => 'Minutes of Meeting',
+    'description'    => 'Manage minutes of meeting (MOM) per project and share public link with clients.',
+    'version'        => '1.0.0',
+    'author'         => 'Codex',
+    'requires_at_least' => '2.9.*',
+]);
+
+register_activation_hook(MOM_MODULE_NAME, 'mom_module_install');
+register_uninstall_hook(MOM_MODULE_NAME, 'mom_module_uninstall');
+
+function mom_module_install()
+{
+    require_once __DIR__ . '/install.php';
+}
+
+function mom_module_uninstall()
+{
+    require_once __DIR__ . '/uninstall.php';
+}
+
+hooks()->add_filter('project_tabs_admin', 'mom_project_tab', 10, 2);
+function mom_project_tab($tabs, $project_id)
+{
+    if (!has_permission('mom', '', 'view')) {
+        return $tabs;
+    }
+    $tabs[] = [
+        'name'     => _l('mom_module'),
+        'view'     => 'mom',
+        'url'      => admin_url('mom/index/' . $project_id),
+        'position' => 50,
+        'icon'     => 'fa fa-handshake-o',
+    ];
+    return $tabs;
+}
 /**
  * Module Name: MOM Notes
  * Module Description: Manage minutes of meeting (MOM) per project and share public link with clients.
